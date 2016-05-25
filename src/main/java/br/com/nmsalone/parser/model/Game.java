@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by nelsonsozinho on 24/05/16.
+ * Game model
  */
 public class Game implements Serializable {
 

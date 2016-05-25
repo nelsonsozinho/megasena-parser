@@ -13,7 +13,7 @@ import org.apache.log4j.spi.LoggerFactory;
 import java.util.List;
 
 /**
- * Created by nelsonsozinho on 22/05/16.
+ * Controller to handle the parser utils
  */
 public class ParserController {
 

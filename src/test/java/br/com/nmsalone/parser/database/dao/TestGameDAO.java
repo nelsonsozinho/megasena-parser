@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by nelsonsozinho on 25/05/16.
- */
 public class TestGameDAO {
 
     private ParserDatabaseSQL parserSQL;
@@ -45,7 +42,7 @@ public class TestGameDAO {
         dao.addGame(game);
     }
 
-    @Test
+    //@Test
     public void testAddGames() {
         final List<Game> games = prepareGames();
         dao.addGames(games);

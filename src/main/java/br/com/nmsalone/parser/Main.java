@@ -3,7 +3,7 @@ package br.com.nmsalone.parser;
 import br.com.nmsalone.parser.controller.ParserController;
 
 /**
- * Created by nelsonsozinho on 22/05/16.
+ * Main class
  */
 public class Main {
 

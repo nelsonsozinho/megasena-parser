@@ -12,6 +12,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Class usad to parser the html file
+ */
 public class ParserHTMLContent {
 
     private static final Logger logger = LogManager.getLogger(ParserHTMLContent.class);

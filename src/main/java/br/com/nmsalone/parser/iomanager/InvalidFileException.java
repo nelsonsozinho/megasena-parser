@@ -1,7 +1,7 @@
 package br.com.nmsalone.parser.iomanager;
 
 /**
- * Created by nelsonsozinho on 23/05/16.
+ * Exception to handle problems with file
  */
 public class InvalidFileException extends Exception {
 

@@ -11,9 +11,7 @@ import java.util.List;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-/**
- * Created by nelsonsozinho on 24/05/16.
- */
+
 public class TestParserContent {
 
     private ParserHTMLContent parserContent;

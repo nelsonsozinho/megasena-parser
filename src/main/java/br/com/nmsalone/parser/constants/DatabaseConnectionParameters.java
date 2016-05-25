@@ -1,8 +1,5 @@
 package br.com.nmsalone.parser.constants;
 
-/**
- * Created by nelsonsozinho on 23/05/16.
- */
 public class DatabaseConnectionParameters {
 
     public static final String DB_NAME = "dbname";

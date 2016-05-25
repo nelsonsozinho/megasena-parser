@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Wrapper to connection object
+ */
 public class ConnectionWrapper {
 
     private final Connection connection;

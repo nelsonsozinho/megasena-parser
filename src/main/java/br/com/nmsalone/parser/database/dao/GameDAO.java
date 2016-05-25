@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Created by nelsonsozinho on 24/05/16.
+ * DAO to game model
  */
 public class GameDAO {
 
