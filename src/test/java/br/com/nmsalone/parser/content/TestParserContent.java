@@ -1,6 +1,5 @@
-package br.com.nmsalone.parser.htmlcontent;
+package br.com.nmsalone.parser.content;
 
-import br.com.nmsalone.parser.constants.GameKeys;
 import br.com.nmsalone.parser.model.Game;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +7,6 @@ import org.junit.Test;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -18,7 +16,7 @@ import static org.junit.Assert.assertNotNull;
  */
 public class TestParserContent {
 
-    private ParserContent parserContent;
+    private ParserHTMLContent parserContent;
 
     @Before
     public void prepare() {
@@ -29,7 +27,7 @@ public class TestParserContent {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        parserContent = new ParserContent(file);
+        parserContent = new ParserHTMLContent(file);
     }
 
     @Test

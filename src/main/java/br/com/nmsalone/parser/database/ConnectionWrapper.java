@@ -12,6 +12,11 @@ public class ConnectionWrapper {
 
     public ConnectionWrapper(final Connection connection) {
         this.connection = connection;
+        try {
+            this.connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void closeConnection() {
@@ -31,6 +36,22 @@ public class ConnectionWrapper {
         }
 
         return statement;
+    }
+
+    public void commit() {
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void rollback() {
+        try {
+            connection.rollback();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void closeStatement() {

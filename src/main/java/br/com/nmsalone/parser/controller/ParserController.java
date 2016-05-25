@@ -2,35 +2,46 @@ package br.com.nmsalone.parser.controller;
 
 import br.com.nmsalone.parser.database.ConnectionFactory;
 import br.com.nmsalone.parser.database.ConnectionWrapper;
-import br.com.nmsalone.parser.htmlcontent.ParserContent;
+import br.com.nmsalone.parser.content.ParserHTMLContent;
+import br.com.nmsalone.parser.database.dao.GameDAO;
 import br.com.nmsalone.parser.iomanager.FileManager;
-import br.com.nmsalone.parser.iomanager.InvalidFileException;
 import br.com.nmsalone.parser.model.Game;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by nelsonsozinho on 22/05/16.
  */
 public class ParserController {
 
+    private static final Logger logger = LogManager.getLogger(ParserController.class);
+
     private ConnectionWrapper connectionWrapper;
-    private ParserContent parserContent;
+    private ParserHTMLContent parserContent;
+    private GameDAO dao;
 
     public ParserController() {
-        try {
-            prepareResources();
-        } catch (InvalidFileException e) {
-            e.printStackTrace();
-        }
-
+        logger.info("Configure reources");
+        prepareResources();
     }
 
-    private void prepareResources() throws InvalidFileException {
+    public void executeDataFill() {
+        logger.info("Recover games from file");
+        final List<Game> games = parserContent.recoverToupleValues();
+        logger.info("Transfer to database");
+        dao.addGames(games);
+        logger.info("Process finish");
+    }
+
+    private void prepareResources()  {
         final FileManager fileManager = new FileManager();
-        parserContent = new ParserContent(fileManager.loaGameReusltFile());
+
+        parserContent = new ParserHTMLContent(fileManager.loaGameResultFile());
         connectionWrapper = ConnectionFactory.getInstance().newConnection();
+        dao = new GameDAO(connectionWrapper);
     }
 
     private List<Game> getContentFromFile() {

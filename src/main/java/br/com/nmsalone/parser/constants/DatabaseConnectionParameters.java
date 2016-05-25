@@ -11,8 +11,8 @@ public class DatabaseConnectionParameters {
 
     public static final String DB_PASSWORD = "dbpassword";
 
-    public static final String DB_HOST = "dbhost";
+    public static final String DB_HOST = "host";
 
-    public static final String DB_PORT = "dbport";
+    public static final String DB_PORT = "port";
 
 }

@@ -1,6 +1,5 @@
-package br.com.nmsalone.parser.htmlcontent;
+package br.com.nmsalone.parser.content;
 
-import br.com.nmsalone.parser.constants.GameKeys;
 import br.com.nmsalone.parser.model.Game;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -11,18 +10,17 @@ import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.NumberFormat;
 import java.util.*;
 
-public class ParserContent {
+public class ParserHTMLContent {
 
-    private static final Logger logger = LogManager.getLogger(ParserContent.class);
+    private static final Logger logger = LogManager.getLogger(ParserHTMLContent.class);
 
     private File documentFile;
 
     private Document mainDocument;
 
-    public ParserContent(final File documentFile) {
+    public ParserHTMLContent(final File documentFile) {
         this.documentFile = documentFile;
         makeObjectParser();
     }
@@ -57,7 +55,6 @@ public class ParserContent {
                     game.setId(Long.parseLong(id));
                     game.setDateDraw(parseToDate(values.get(1).text()));
                     game.setWinnersCount(Integer.parseInt(values.get(9).text()));
-                    //game.setEstimatedPrize(Double.parseDouble(values.get(19).text()));
                     game.setN1(Integer.parseInt(values.get(2).text()));
                     game.setN2(Integer.parseInt(values.get(3).text()));
                     game.setN3(Integer.parseInt(values.get(4).text()));
