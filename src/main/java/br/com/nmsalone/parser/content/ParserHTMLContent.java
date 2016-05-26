@@ -10,6 +10,7 @@ import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -19,11 +20,11 @@ public class ParserHTMLContent {
 
     private static final Logger logger = LogManager.getLogger(ParserHTMLContent.class);
 
-    private File documentFile;
+    private InputStream documentFile;
 
     private Document mainDocument;
 
-    public ParserHTMLContent(final File documentFile) {
+    public ParserHTMLContent(final InputStream documentFile) {
         this.documentFile = documentFile;
         makeObjectParser();
     }

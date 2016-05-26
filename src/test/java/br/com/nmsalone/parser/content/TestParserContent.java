@@ -5,6 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -19,13 +22,17 @@ public class TestParserContent {
     @Before
     public void prepare() {
         java.net.URL url = ClassLoader.getSystemClassLoader().getResource("loteria/D_MEGA.HTM");
-        File file = null;
+        InputStream inputStream = null;
         try {
-            file = new File(url.toURI());
+            File file = new File(url.toURI());
+            inputStream = new FileInputStream(file);
         } catch (URISyntaxException e) {
             e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        parserContent = new ParserHTMLContent(file);
+
+        parserContent = new ParserHTMLContent(inputStream);
     }
 
     @Test

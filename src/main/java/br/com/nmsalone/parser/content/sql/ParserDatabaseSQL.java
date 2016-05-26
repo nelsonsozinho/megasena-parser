@@ -14,6 +14,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Parser to xml document. The file contains sql queryes and this class
@@ -25,7 +26,7 @@ public class ParserDatabaseSQL {
     private static final String INSERT_GAME = "add_new_game";
 
     private FileManager fileManager;
-    private File xmlFile;
+    private InputStream xmlFile;
 
 
     public ParserDatabaseSQL() {

@@ -3,6 +3,7 @@ package br.com.nmsalone.parser.iomanager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -16,24 +17,20 @@ public class FileManager {
      * @return html file
      * @throws InvalidFileException
      */
-    public File loaGameResultFile()  {
-        File fileLoaded = null;
+    public InputStream loaGameResultFile()  {
+        InputStream fileLoaded = null;
         try {
-            fileLoaded = loadResource("loteria/D_MEGA.HTM");
+            fileLoaded = loadResourceAsStream("loteria/D_MEGA.HTM");
         } catch (InvalidFileException e) {
             e.printStackTrace();
         }
         return fileLoaded;
     }
 
-    private File loadResource(final String resourcePath) throws InvalidFileException {
+    private InputStream loadResourceAsStream(final String resourcePath) throws InvalidFileException {
         final ClassLoader classLoader = getClass().getClassLoader();
-        final File file = new File(classLoader.getResource(resourcePath).getFile());
-        if(!isValidFile(file)) {
-            throw new InvalidFileException("File with problems");
-        }
-
-        return file;
+        final InputStream stream = classLoader.getResourceAsStream(resourcePath);
+        return stream;
     }
 
     /**
@@ -44,8 +41,8 @@ public class FileManager {
     public Properties loadDatabaseProperties() {
         Properties properties = new Properties();
         try {
-            File file = loadResource("db-connection.properties");
-            properties.load(new FileInputStream(file));
+            InputStream file = loadResourceAsStream("db-connection.properties");
+            properties.load(file);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidFileException e) {
@@ -60,27 +57,14 @@ public class FileManager {
      *
      * @return
      */
-    public File loadXmlInsertFiles() {
-        File fileLoaded = null;
+    public InputStream loadXmlInsertFiles() {
+        InputStream fileLoaded = null;
         try {
-            fileLoaded = loadResource("sql/inserts.xml");
+            fileLoaded = loadResourceAsStream("sql/inserts.xml");
         } catch (InvalidFileException e) {
             e.printStackTrace();
         }
         return fileLoaded;
     }
-
-    private boolean isValidFile(final File file) {
-        if(!file.exists()) {
-            return false;
-        } else if(file.isDirectory()) {
-            return false;
-        } else if(!file.canRead()) {
-            return false;
-        }
-
-        return true;
-    }
-
 
 }
