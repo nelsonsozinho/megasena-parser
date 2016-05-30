@@ -4,11 +4,13 @@ import br.com.nmsalone.parser.content.ParserHTMLContent;
 import br.com.nmsalone.parser.database.ConnectionFactory;
 import br.com.nmsalone.parser.database.ConnectionWrapper;
 import br.com.nmsalone.parser.database.dao.GameDAO;
+import br.com.nmsalone.parser.iomanager.DownloadManager;
 import br.com.nmsalone.parser.iomanager.FileManager;
 import br.com.nmsalone.parser.model.Game;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.io.*;
 import java.util.List;
 
 /**
@@ -24,7 +26,11 @@ public class ParserController {
 
     public ParserController() {
         logger.info("Configure reources");
-        prepareResources();
+        try {
+            prepareResources();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void executeDataFill() {
@@ -35,12 +41,38 @@ public class ParserController {
         logger.info("Process finish");
     }
 
-    private void prepareResources()  {
+    private void prepareResources() throws FileNotFoundException {
         final FileManager fileManager = new FileManager();
+        final File fileDownloaded = prepareToDownloadFile();
+        final File fileUnziped = prepareToUnzip(fileManager, fileDownloaded);
+        final InputStream input = new FileInputStream(fileUnziped);
 
-        parserContent = new ParserHTMLContent(fileManager.loaGameResultFile());
+        parserContent = new ParserHTMLContent(input);
         connectionWrapper = ConnectionFactory.getInstance().newConnection();
         dao = new GameDAO(connectionWrapper);
+    }
+
+    private File prepareToUnzip(final FileManager manager, final File file) {
+         File fileOut = null;
+        try {
+            fileOut = manager.unzipResultPackage(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return fileOut;
+    }
+
+    private File prepareToDownloadFile() {
+        final DownloadManager downloadManager = new DownloadManager();
+        File fileDownloaded = null;
+        try {
+            fileDownloaded = downloadManager.downaloadFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return fileDownloaded;
     }
 
     private List<Game> getContentFromFile() {
