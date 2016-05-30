@@ -1,14 +1,13 @@
 package br.com.nmsalone.parser.controller;
 
+import br.com.nmsalone.parser.content.ParserHTMLContent;
 import br.com.nmsalone.parser.database.ConnectionFactory;
 import br.com.nmsalone.parser.database.ConnectionWrapper;
-import br.com.nmsalone.parser.content.ParserHTMLContent;
 import br.com.nmsalone.parser.database.dao.GameDAO;
 import br.com.nmsalone.parser.iomanager.FileManager;
 import br.com.nmsalone.parser.model.Game;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 
 import java.util.List;
 
@@ -48,7 +47,5 @@ public class ParserController {
         final List<Game> fileContent = parserContent.recoverToupleValues();
         return fileContent;
     }
-
-
 
 }

@@ -4,7 +4,6 @@ import br.com.nmsalone.parser.content.sql.ParserDatabaseSQL;
 import br.com.nmsalone.parser.database.ConnectionFactory;
 import br.com.nmsalone.parser.model.Game;
 import org.junit.Before;
-import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
