@@ -1,8 +1,6 @@
 package br.com.nmsalone.parser.controller;
 
 import br.com.nmsalone.parser.content.ParserHTMLContent;
-import br.com.nmsalone.parser.database.ConnectionFactory;
-import br.com.nmsalone.parser.database.ConnectionWrapper;
 import br.com.nmsalone.parser.database.dao.GameDAO;
 import br.com.nmsalone.parser.iomanager.DownloadManager;
 import br.com.nmsalone.parser.iomanager.FileManager;
@@ -20,12 +18,11 @@ public class ParserController {
 
     private static final Logger logger = LogManager.getLogger(ParserController.class);
 
-    private ConnectionWrapper connectionWrapper;
     private ParserHTMLContent parserContent;
     private GameDAO dao;
 
     public ParserController() {
-        logger.info("Configure reources");
+        logger.info("Configure resources");
         try {
             prepareResources();
         } catch (FileNotFoundException e) {
@@ -33,14 +30,23 @@ public class ParserController {
         }
     }
 
+    /**
+     * Start data recover process
+     */
     public void executeDataFill() {
         logger.info("Recover games from file");
         final List<Game> games = parserContent.recoverToupleValues();
         logger.info("Transfer to database");
+        dao.deleteAll();
         dao.addGames(games);
         logger.info("Process finish");
     }
 
+    /**
+     * Prepare file resource
+     *
+     * @throws FileNotFoundException
+     */
     private void prepareResources() throws FileNotFoundException {
         final FileManager fileManager = new FileManager();
         final File fileDownloaded = prepareToDownloadFile();
@@ -48,10 +54,16 @@ public class ParserController {
         final InputStream input = new FileInputStream(fileUnziped);
 
         parserContent = new ParserHTMLContent(input);
-        connectionWrapper = ConnectionFactory.getInstance().newConnection();
-        dao = new GameDAO(connectionWrapper);
+        dao = new GameDAO();
     }
 
+    /**
+     * Prepare unzip task
+     *
+     * @param manager
+     * @param file
+     * @return
+     */
     private File prepareToUnzip(final FileManager manager, final File file) {
          File fileOut = null;
         try {
@@ -63,6 +75,11 @@ public class ParserController {
         return fileOut;
     }
 
+    /**
+     * Prepa re download result file
+     *
+     * @return file
+     */
     private File prepareToDownloadFile() {
         final DownloadManager downloadManager = new DownloadManager();
         File fileDownloaded = null;
@@ -73,11 +90,6 @@ public class ParserController {
         }
 
         return fileDownloaded;
-    }
-
-    private List<Game> getContentFromFile() {
-        final List<Game> fileContent = parserContent.recoverToupleValues();
-        return fileContent;
     }
 
 }

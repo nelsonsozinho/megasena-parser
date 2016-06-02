@@ -22,25 +22,42 @@ import java.io.InputStream;
 public class ParserDatabaseSQL {
 
     private static final Logger logget = LogManager.getLogger(ParserDatabaseSQL.class);
-    private static final String INSERT_GAME = "add_new_game";
+
+    private static ParserDatabaseSQL instance;
+
+    public static ParserDatabaseSQL getInstance() {
+        if(instance == null) {
+            try {
+                instance = new ParserDatabaseSQL();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SAXException e) {
+                e.printStackTrace();
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return instance;
+    }
 
     private FileManager fileManager;
     private InputStream xmlFile;
+    private Document document;
 
-
-    public ParserDatabaseSQL() {
+    private ParserDatabaseSQL() throws IOException, SAXException, ParserConfigurationException {
         fileManager = new FileManager();
         xmlFile = fileManager.loadXmlInsertFiles();
-    }
 
-    public String loadInsert() throws ParserConfigurationException, IOException, SAXException {
         final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        final Document document = documentBuilder.parse(xmlFile);
+        document = documentBuilder.parse(xmlFile);
+    }
 
+    public String findQuery(final String tag, final String id) throws ParserConfigurationException, IOException, SAXException {
         document.getDocumentElement().normalize();
 
-        final NodeList nodeList = document.getElementsByTagName("insert");
+        final NodeList nodeList = document.getElementsByTagName(tag);
 
         for(int i=0;i<nodeList.getLength();i++) {
             final Node node = (Node) nodeList.item(i);
@@ -49,9 +66,9 @@ public class ParserDatabaseSQL {
                 final NamedNodeMap nodeMap = node.getAttributes();
                 for(int attrId = 0;i<nodeMap.getLength();attrId++) {
                     final Node nodeAttr = nodeMap.item(attrId);
-                    if(nodeAttr.getNodeName().equals("id") && nodeAttr.getNodeValue().equals("add_new_game")) {
+                    if(nodeAttr.getNodeName().equals("id") && nodeAttr.getNodeValue().equals(id)) {
                         final String strContent = node.getTextContent();
-                        logget.info("Get insert from file: " + strContent);
+                        logget.info("Get " + tag + " from file: " + strContent);
                         return strContent;
                     }
                 }

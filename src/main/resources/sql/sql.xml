@@ -4,4 +4,9 @@
         insert into megasena ("id", "date-draw", "winners-count", "n1", "n2", "n3", "n4", "n5", "n6")
         values(?, ? , ? , ?, ?, ?, ?, ?, ?)
     </insert>
+
+    <delete id="delete_all">
+        delete from megasena
+    </delete>
+
 </sql>

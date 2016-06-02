@@ -1,6 +1,8 @@
 package br.com.nmsalone.parser.content;
 
 
+import br.com.nmsalone.parser.constants.QueryIds;
+import br.com.nmsalone.parser.constants.SqlTags;
 import br.com.nmsalone.parser.content.sql.ParserDatabaseSQL;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,14 +19,14 @@ public class TestParseDatabaseSQL {
 
     @Before
     public void prepare() {
-        parser = new ParserDatabaseSQL();
+        parser = ParserDatabaseSQL.getInstance();
     }
 
     @Test
     public void testLoadInsert() {
         String content = null;
         try {
-            content = parser.loadInsert();
+            content = parser.findQuery(SqlTags.KEY_INSERT, QueryIds.ADD_NEW_GAME);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException e) {

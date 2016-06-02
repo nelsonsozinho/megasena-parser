@@ -1,5 +1,7 @@
 package br.com.nmsalone.parser.database.dao;
 
+import br.com.nmsalone.parser.constants.QueryIds;
+import br.com.nmsalone.parser.constants.SqlTags;
 import br.com.nmsalone.parser.content.sql.ParserDatabaseSQL;
 import br.com.nmsalone.parser.database.ConnectionFactory;
 import br.com.nmsalone.parser.model.Game;
@@ -21,11 +23,11 @@ public class TestGameDAO {
 
     @Before
     public void prepare() {
-        parserSQL = new ParserDatabaseSQL();
-        dao = new GameDAO(factory.newConnection());
+        parserSQL = ParserDatabaseSQL.getInstance();
+        dao = new GameDAO();
 
         try {
-            sql = parserSQL.loadInsert();
+            sql = parserSQL.findQuery(SqlTags.KEY_INSERT, QueryIds.ADD_NEW_GAME);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException e) {

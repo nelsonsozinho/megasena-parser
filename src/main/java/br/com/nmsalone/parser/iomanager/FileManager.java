@@ -2,7 +2,6 @@ package br.com.nmsalone.parser.iomanager;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 
 import java.io.*;
 import java.util.Properties;
@@ -105,7 +104,7 @@ public class FileManager {
     public InputStream loadXmlInsertFiles() {
         InputStream fileLoaded = null;
         try {
-            fileLoaded = loadResourceAsStream("sql/inserts.xml");
+            fileLoaded = loadResourceAsStream("sql/sql.xml");
         } catch (InvalidFileException e) {
             e.printStackTrace();
         }

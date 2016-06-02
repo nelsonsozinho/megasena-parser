@@ -41,6 +41,17 @@ public class ConnectionWrapper {
         return statement;
     }
 
+    public Statement getStatement() {
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return statement;
+    }
+
     public void commit() {
         try {
             connection.commit();
