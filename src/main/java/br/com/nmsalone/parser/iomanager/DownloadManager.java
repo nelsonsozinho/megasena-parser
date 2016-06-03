@@ -31,6 +31,8 @@ public class DownloadManager {
         final CookieManager cookieManager = new CookieManager();
         CookieHandler.setDefault(cookieManager);
 
+        log.info("Download in course");
+
         final URL url = getUrl();
         final File tempDirectory = crateDirectoryIfNoExists();
         final HttpURLConnection httpConnection = getObjectConnection(url);
@@ -39,13 +41,14 @@ public class DownloadManager {
         final FileOutputStream fos = getOutpurStream(tempDirectory);
         final BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
 
+        log.info("Complete file size: " + completeFileSize);
+
         byte[] data = new byte[1024];
         long downloadFileSize = 0;
         int x = 0;
         while((x = in.read(data, 0, 1024)) >= 0) {
             downloadFileSize += x;
             final int currentProgress = (int) ((((double)downloadFileSize) / ((double)completeFileSize)) * 100000d);
-            log.info("Download progress: " + currentProgress);
             bos.write(data,0,x);
         }
 

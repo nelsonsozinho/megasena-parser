@@ -46,14 +46,15 @@ public class ParserHTMLContent {
         final Elements tableElement = mainDocument.getElementsByTag("table");
         final Element table = tableElement.get(0);
         final Elements touples = table.getElementsByTag("tr");
+
+        logger.info("Recover " + touples.size() + " lines from file");
+
         for(Element touple : touples) {
             if(touple.getElementsByTag("th").isEmpty()) {
                 final Elements values = touple.getElementsByTag("td");
                 final String id = values.get(0).text();
 
                 if(!id.isEmpty() && isNumber(id)) {
-                    logger.debug("Id: " + id);
-
                     Game game = new Game();
 
                     game.setId(Long.parseLong(id));

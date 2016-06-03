@@ -13,15 +13,11 @@ public class Main {
     private static final Logger log = LogManager.getLogger(Main.class);
 
     public static void main(final String args[]) throws InterruptedException {
-        //final TaskScheduler task = new TaskScheduler();
-        //task.startAsync();
+        final TaskScheduler task = new TaskScheduler();
+        log.info("Executing task");
+        task.startAsync();
         //Thread.sleep(50000);
         //task.stopAsync();
-
-
-        log.info("Executing task");
-        ParserController controller = new ParserController();
-        controller.executeDataFill();
     }
 
 }

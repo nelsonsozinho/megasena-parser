@@ -20,7 +20,7 @@ public class TaskScheduler extends AbstractScheduledService {
 
     @Override
     protected Scheduler scheduler() {
-        return Scheduler.newFixedRateSchedule(1, 5, TimeUnit.HOURS);
+        return Scheduler.newFixedRateSchedule(5, 6, TimeUnit.HOURS);
     }
 
     @Override
